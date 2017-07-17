@@ -1,4 +1,3 @@
-//
 
 // constructor for creating basic flashcards
 function BasicCard(front, back) {
