@@ -1,12 +1,8 @@
+
 var inquirer = require("inquirer");
+var ClozeCard = require("./ClozeCard.js");
 
-var BasicCard = require("./BasicCard.js");
-
-//var firstPresident = new BasicCard("Who was the first president of the United States?", "George Washington");
-
-
-// console.log(firstPresident.front);
-// console.log(firstPresident.back);
+//var questionsArray = require("./main.js");
 
 var count = 0;
 var testCount = 0;
@@ -19,17 +15,17 @@ var questions = function() {
 	if (count < 2) {
 	inquirer.prompt([
 	{
-		name: "question",
+		name: "text",
 		message: "Type your question: "
 	},
 	{
-		name: "answer",
+		name: "cloze",
 		message: "Type the answer: "
 	}
 
 	]).then(function(answer){
-		var newQuestion = new BasicCard(answer.question, answer.answer);
-
+		var newQuestion = new ClozeCard(answer.text, answer.cloze);
+		newQuestion.printQuestionsInfo();
 		questionsArray.push(newQuestion);
 		count++;
 		questions();
@@ -40,6 +36,7 @@ var questions = function() {
 		// 	questionsArray[x].printQuestionsInfo();
 		// }
 		console.log("TEST RUN");
+		console.log(questionsArray);
 		takeTheTest();
 	}
 
@@ -55,15 +52,16 @@ var takeTheTest = function() {
 
 		{
 			name: "questionAnswer",
-			message: questionsArray[testCount].front
+			//message: questionsArray[testCount].partial
+			message: questionsArray[testCount].partial
 		}
 
 		]).then(function(testAnswer) {
-			if(testAnswer.questionAnswer === questionsArray[testCount].back) {
+			if(testAnswer.questionAnswer === questionsArray[testCount].cloze) {
 				console.log("correct");
 			} else {
 				console.log("not correct");
-				console.log(questionsArray[testCount].back);
+				console.log(questionsArray[testCount].fullText);
 			}
 
 			testCount++;
@@ -72,11 +70,3 @@ var takeTheTest = function() {
 	}
 
 }
-
-//module.exports = questionsArray;
-
-
-
-
-
-
