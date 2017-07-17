@@ -6,5 +6,9 @@ function BasicCard(front, back) {
 	this.back = back;
 }
 
+BasicCard.prototype.printQuestionsInfo = function() {
+	console.log("Question: " + this.front + "\nAnswer: " + this.back);
+}
+
 
 module.exports = BasicCard;
