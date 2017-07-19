@@ -11,16 +11,10 @@ function CloseCard(text, cloze) {
 CloseCard.prototype.printQuestionsInfo = function() {
 	for (var i = 0; i < 1; i++) {
 		var changeThisString = this.cloze;
-		//console.log(this);
-		console.log(changeThisString);
-		console.log(this.fullText);
 		this.partial = this.fullText.replace(changeThisString, "...");
 	}
-	//console.log("Question: " + this.partial);
 }
 
-
-
-
-//module.exports = questionsArray;
 module.exports = CloseCard;
+
+

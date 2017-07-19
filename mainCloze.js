@@ -13,23 +13,33 @@ var questions = function() {
 	console.log("\nNEW QUESTION\n")
 
 	if (count < 2) {
-	inquirer.prompt([
-	{
-		name: "text",
-		message: "Type your question: "
-	},
-	{
-		name: "cloze",
-		message: "Type the answer: "
-	}
+		inquirer.prompt([
+		{
+			name: "text",
+			message: "Type your question: "
+		},
+		{
+			name: "cloze",
+			message: "Type the answer: "
+		}
 
-	]).then(function(answer){
-		var newQuestion = new ClozeCard(answer.text, answer.cloze);
-		newQuestion.printQuestionsInfo();
-		questionsArray.push(newQuestion);
-		count++;
-		questions();
-	});
+		]).then(function(answer){
+
+			var regex = new RegExp( '\\b' + answer.cloze + '\\b' );
+			var result = regex.test( answer.text );
+
+			if(result !== true) {
+				console.log("This is not going to work!");
+				var newQuestion = new ClozeCard("QUESTION FORMED WITH A MISTAKE, PRESS RETURN", ".");
+			} else {
+				var newQuestion = new ClozeCard(answer.text, answer.cloze);
+			}
+			
+			newQuestion.printQuestionsInfo();
+			questionsArray.push(newQuestion);
+			count++;
+			questions();
+		});
 
 	} else {
 		// for(var x = 0; x < questionsArray.length; x++) {
@@ -52,7 +62,6 @@ var takeTheTest = function() {
 
 		{
 			name: "questionAnswer",
-			//message: questionsArray[testCount].partial
 			message: questionsArray[testCount].partial
 		}
 
@@ -70,3 +79,5 @@ var takeTheTest = function() {
 	}
 
 }
+
+
