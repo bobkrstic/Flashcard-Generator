@@ -39,8 +39,28 @@ var questions = function() {
 		// for(var x = 0; x < questionsArray.length; x++) {
 		// 	questionsArray[x].printQuestionsInfo();
 		// }
-		console.log("TEST RUN");
-		takeTheTest();
+		inquirer.prompt([
+
+		{
+			type: "rawlist",
+			message: "What would you like to do now?",
+			choices: ["Practice", "Rest"],
+			name: "usersChoice"
+		}
+
+		]).then(function(choice) {
+
+			//console.log(choice.usersChoice);
+
+			if(choice.usersChoice === "Practice") {
+				console.log("TEST RUN");
+				takeTheTest();
+			} else {
+				console.log("THANK YOU FOR PLAYING!");
+				return;
+			}
+
+		});
 	}
 
 };

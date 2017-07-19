@@ -10,9 +10,11 @@ var questionsArray = [];
 
 var questions = function() {
 
-	console.log("\nNEW QUESTION\n")
+	
 
 	if (count < 2) {
+		console.log("\nNEW QUESTION\n")
+
 		inquirer.prompt([
 		{
 			name: "text",
@@ -30,14 +32,14 @@ var questions = function() {
 
 			if(result !== true) {
 				console.log("This is not going to work!");
-				var newQuestion = new ClozeCard("QUESTION FORMED WITH A MISTAKE, PRESS RETURN", ".");
+				//var newQuestion = new ClozeCard("QUESTION FORMED WITH A MISTAKE, PRESS RETURN", ".");
 			} else {
 				var newQuestion = new ClozeCard(answer.text, answer.cloze);
+				newQuestion.printQuestionsInfo();
+				questionsArray.push(newQuestion);
+				count++;
 			}
-			
-			newQuestion.printQuestionsInfo();
-			questionsArray.push(newQuestion);
-			count++;
+
 			questions();
 		});
 
@@ -45,9 +47,31 @@ var questions = function() {
 		// for(var x = 0; x < questionsArray.length; x++) {
 		// 	questionsArray[x].printQuestionsInfo();
 		// }
-		console.log("TEST RUN");
-		console.log(questionsArray);
-		takeTheTest();
+		inquirer.prompt([
+
+		{
+			type: "list",
+			message: "\nWhat would you like to do now?\n",
+			choices: ["Practice", "Rest"],
+			name: "usersChoice"
+		}
+
+		]).then(function(choice) {
+
+			//console.log(choice.usersChoice);
+
+			if(choice.usersChoice === "Practice") {
+				console.log("\nTEST RUN\n");
+				takeTheTest();
+			} else {
+				console.log("THANK YOU FOR PLAYING!");
+				return;
+			}
+
+		});
+		// console.log("TEST RUN");
+		// console.log(questionsArray);
+		// takeTheTest();
 	}
 
 };
