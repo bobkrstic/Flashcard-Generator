@@ -63,7 +63,9 @@ var questions = function() {
 			if(choice.usersChoice === "Practice") {
 				console.log("\nTEST RUN\n");
 				takeTheTest();
+
 			} else {
+
 				console.log("THANK YOU FOR PLAYING!");
 				return;
 			}
@@ -100,6 +102,29 @@ var takeTheTest = function() {
 			testCount++;
 			takeTheTest();
 		});
+
+	} else {
+
+			inquirer.prompt([
+
+			{
+				type: "list",
+				message: "\nTake the test again?\n",
+				choices: ["Yes", "No"],
+				name: "againChoice"
+			}
+
+			]).then(function(choice){
+
+				if(choice.againChoice === "Yes"){
+					testCount = 0;
+					takeTheTest();
+				} else {
+					console.log("\nTHANK YOU FOR PLAYING!\n")
+					return;
+				}
+
+			});
 	}
 
 }

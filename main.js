@@ -43,7 +43,7 @@ var questions = function() {
 
 		{
 			type: "rawlist",
-			message: "What would you like to do now?",
+			message: "\nWhat would you like to do now?\n",
 			choices: ["Practice", "Rest"],
 			name: "usersChoice"
 		}
@@ -53,10 +53,10 @@ var questions = function() {
 			//console.log(choice.usersChoice);
 
 			if(choice.usersChoice === "Practice") {
-				console.log("TEST RUN");
+				console.log("\nTEST RUN\n");
 				takeTheTest();
 			} else {
-				console.log("THANK YOU FOR PLAYING!");
+				console.log("\nTHANK YOU FOR PLAYING!\n");
 				return;
 			}
 
@@ -89,6 +89,29 @@ var takeTheTest = function() {
 			testCount++;
 			takeTheTest();
 		});
+		
+	} else {
+
+			inquirer.prompt([
+
+			{
+				type: "list",
+				message: "\nTake the test again?\n",
+				choices: ["Yes", "No"],
+				name: "againChoice"
+			}
+
+			]).then(function(choice){
+
+				if(choice.againChoice === "Yes"){
+					testCount = 0;
+					takeTheTest();
+				} else {
+					console.log("\nTHANK YOU FOR PLAYING!\n")
+					return;
+				}
+
+			});
 	}
 
 }
